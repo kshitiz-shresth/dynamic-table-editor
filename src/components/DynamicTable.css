@@ -1,0 +1,272 @@
+/* ── Root ─────────────────────────────────────────────────────────────── */
+.dte-root {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  color: #1a1a2e;
+}
+
+/* ── Toolbar ──────────────────────────────────────────────────────────── */
+.dte-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 0 8px;
+  flex-wrap: wrap;
+}
+
+.dte-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 5px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.1s, border-color 0.1s;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.dte-btn:hover:not(:disabled) {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.dte-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.dte-btn--primary {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.dte-btn--primary:hover:not(:disabled) {
+  background: #dbeafe;
+  border-color: #93c5fd;
+}
+
+.dte-btn--danger {
+  color: #dc2626;
+}
+
+.dte-btn--danger:hover:not(:disabled) {
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+
+.dte-sep {
+  width: 1px;
+  height: 20px;
+  background: #e5e7eb;
+  flex-shrink: 0;
+}
+
+/* ── Editor wrapper (the bordered card) ──────────────────────────────── */
+.dte-editor-wrap {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  background: #fff;
+  overflow: hidden;
+}
+
+/* ── Horizontal scroll container ─────────────────────────────────────── */
+.dte-editor-scroll {
+  position: relative;
+  overflow-x: auto;
+  /* Internal padding gives the row/col drag handles a place to live. The
+     handles render inside this container with positive coordinates so the
+     scroll-axis clipping doesn't hide them. */
+  padding: 22px 0 0 22px;
+  /* Grow with the table — wider than viewport triggers horizontal scroll */
+  min-width: 100%;
+}
+
+/* ── TipTap editor surface ────────────────────────────────────────────── */
+.dte-editor {
+  display: inline-block;
+  min-width: max-content;
+}
+
+.dte-editor .tiptap {
+  outline: none;
+  padding: 0;
+}
+
+/* ── Table ────────────────────────────────────────────────────────────── */
+.dte-editor .tiptap table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  /* Width is determined by the sum of column widths in <colgroup>. When this
+     exceeds the wrap, .dte-editor-scroll shows a horizontal scrollbar. */
+  margin: 0;
+}
+
+/* ── Header cells (th) ────────────────────────────────────────────────── */
+.dte-editor .tiptap th {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-bottom: 2px solid #cbd5e1;
+  padding: 0;
+  vertical-align: middle;
+  position: relative;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: #475569;
+  min-width: 80px;
+}
+
+.dte-editor .tiptap th p {
+  margin: 0;
+  padding: 8px 10px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Data cells (td) ──────────────────────────────────────────────────── */
+.dte-editor .tiptap td {
+  border: 1px solid #e2e8f0;
+  padding: 0;
+  vertical-align: top;
+  position: relative;
+  min-width: 80px;
+  background: #fff;
+  transition: background 0.1s;
+}
+
+.dte-editor .tiptap td:focus-within {
+  background: #fafafa;
+  outline: 2px solid #3b82f6;
+  outline-offset: -2px;
+  z-index: 1;
+}
+
+.dte-editor .tiptap td p {
+  margin: 0;
+  padding: 8px 10px;
+  min-height: 36px;
+  line-height: 1.5;
+  color: #1e293b;
+  font-size: 13px;
+}
+
+/* ── Cell selection highlight ─────────────────────────────────────────── */
+.dte-editor .tiptap .selectedCell {
+  background: #eff6ff !important;
+  outline: 2px solid #3b82f6;
+  outline-offset: -2px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Column resize handle (TipTap built-in) ───────────────────────────── */
+.dte-editor .tiptap .column-resize-handle {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: transparent;
+  cursor: col-resize;
+  z-index: 5;
+  transition: background 0.15s;
+}
+
+.dte-editor .tiptap .column-resize-handle:hover,
+.dte-editor .tiptap.resize-cursor .column-resize-handle {
+  background: #3b82f6;
+}
+
+.dte-editor .tiptap.resize-cursor {
+  cursor: col-resize;
+}
+
+/* ── Remove ProseMirror gap cursor ───────────────────────────────────── */
+.dte-editor .tiptap .ProseMirror-gapcursor {
+  display: none;
+}
+
+/* ── Merged cell (> 1 span) ─────────────────────────────────────────── */
+.dte-editor .tiptap td[colspan="1"][rowspan="1"],
+.dte-editor .tiptap td:not([colspan]):not([rowspan]) {
+  background: #fff;
+}
+
+/* ── Row & column drag handles ───────────────────────────────────────── */
+.dte-row-handle,
+.dte-col-handle {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #64748b;
+  font-weight: 700;
+  cursor: grab;
+  user-select: none;
+  z-index: 4;
+  border-radius: 4px;
+  transition: background 0.12s, color 0.12s, border-color 0.12s, transform 0.1s;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.dte-row-handle {
+  width: 16px;
+  font-size: 11px;
+}
+
+.dte-col-handle {
+  height: 16px;
+  font-size: 16px;
+}
+
+.dte-row-handle:hover,
+.dte-col-handle:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+.dte-row-handle:active,
+.dte-col-handle:active {
+  cursor: grabbing;
+}
+
+.dte-row-handle--dragging,
+.dte-col-handle--dragging {
+  opacity: 0.4;
+}
+
+.dte-row-handle--target,
+.dte-col-handle--target {
+  background: #2563eb;
+  border-color: #1d4ed8;
+  color: #fff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+/* Hide drag handles while a column is being resized — the handles lag the
+   resize by one render frame and would otherwise flicker as they catch up.
+   They reappear cleanly the moment the user releases the mouse. */
+.dte-editor-scroll:has(.tiptap.resize-cursor) .dte-row-handle,
+.dte-editor-scroll:has(.tiptap.resize-cursor) .dte-col-handle {
+  visibility: hidden;
+}
+
+/* ── Read-only ────────────────────────────────────────────────────────── */
+.dte-root--readonly .dte-editor .tiptap td,
+.dte-root--readonly .dte-editor .tiptap th {
+  cursor: default;
+}
