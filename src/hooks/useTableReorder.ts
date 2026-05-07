@@ -166,7 +166,7 @@ export function useTableReorder(editor: Editor | null, enabled: boolean) {
       rows.splice(to, 0, moved);
       tbody.replaceChildren(...rows);
       const out = doc.querySelector('table')?.outerHTML;
-      if (out) editor.commands.setContent(out, true);
+      if (out) editor.commands.setContent(out, { emitUpdate: true });
     },
     [editor]
   );
@@ -202,7 +202,7 @@ export function useTableReorder(editor: Editor | null, enabled: boolean) {
       });
 
       const out = doc.querySelector('table')?.outerHTML;
-      if (out) editor.commands.setContent(out, true);
+      if (out) editor.commands.setContent(out, { emitUpdate: true });
     },
     [editor]
   );

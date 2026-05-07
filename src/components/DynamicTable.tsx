@@ -65,7 +65,7 @@ export function DynamicTable({
     if (!editor || value === undefined) return;
     if (value === lastEmittedRef.current) return; // our own change, skip
     if (value !== editor.getHTML()) {
-      editor.commands.setContent(value, false);
+      editor.commands.setContent(value, { emitUpdate: false });
     }
   }, [editor, value]);
 
@@ -76,7 +76,9 @@ export function DynamicTable({
       lastEmittedRef.current = editor.getHTML();
     };
     editor.on('update', handler);
-    return () => editor.off('update', handler);
+    return () => {
+      editor.off('update', handler);
+    };
   }, [editor]);
 
   // Re-derive toolbar state on every cursor/selection change
