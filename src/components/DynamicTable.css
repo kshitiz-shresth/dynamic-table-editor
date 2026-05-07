@@ -85,7 +85,7 @@
   /* Internal padding gives the row/col drag handles a place to live. The
      handles render inside this container with positive coordinates so the
      scroll-axis clipping doesn't hide them. */
-  padding: 22px 0 0 22px;
+  padding: 22px 0 12px 22px;
   /* Grow with the table — wider than viewport triggers horizontal scroll */
   min-width: 100%;
 }

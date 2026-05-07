@@ -42,6 +42,70 @@ export default function Example() {
 }
 ```
 
+## Using `defaultValue`
+
+Use `defaultValue` when you already have saved table HTML and want to prefill the editor once.
+
+```tsx
+import { DynamicTable } from 'dynamic-table-editor';
+
+const savedHtml = `
+<table>
+  <tbody>
+    <tr><th><p>Task</p></th><th><p>Owner</p></th></tr>
+    <tr><td><p>Design</p></td><td><p>Kshitiz</p></td></tr>
+  </tbody>
+</table>
+`;
+
+<DynamicTable defaultValue={savedHtml} onChange={(html) => console.log(html)} />;
+```
+
+Notes:
+- `defaultValue` is for uncontrolled initial content (first render only)
+- If you need live external control (API fetch, reset, edit existing record), use `value` + `onChange`
+
+## Using Inside a Form
+
+`DynamicTable` works well as a form field because it outputs an HTML string through `onChange`.
+
+```tsx
+import React, { useState } from 'react';
+import { DynamicTable } from 'dynamic-table-editor';
+
+export default function TaskForm() {
+  const [form, setForm] = useState({
+    title: '',
+    tableHtml: '',
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // send form.tableHtml to your API
+    console.log(form);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        value={form.title}
+        onChange={(e) => setForm((s) => ({ ...s, title: e.target.value }))}
+        placeholder="Project title"
+      />
+
+      <DynamicTable
+        cols={4}
+        rows={4}
+        value={form.tableHtml}
+        onChange={(html) => setForm((s) => ({ ...s, tableHtml: html }))}
+      />
+
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+```
+
 ## Props
 
 - `value?: string` Controlled HTML value
