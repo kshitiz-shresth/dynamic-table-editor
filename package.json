@@ -1,6 +1,6 @@
 {
   "name": "dynamic-table-editor",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A React table component with editable cells, resizable columns, row/column management, cell merging, and form-field styling",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
