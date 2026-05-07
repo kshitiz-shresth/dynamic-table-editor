@@ -1,7 +1,8 @@
 # Dynamic Table Editor
 
-A React + TipTap powered dynamic table editor with:
+![Dynamic Table Editor Preview](./docs/preview.png)
 
+A React + TipTap powered dynamic table editor with:
 - Column resize
 - Row/column reorder via drag handles
 - Add/delete rows and columns
