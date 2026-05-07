@@ -14,7 +14,8 @@
     "./dist/style.css": "./dist/style.css"
   },
   "files": [
-    "dist"
+    "dist",
+    "docs/preview.png"
   ],
   "scripts": {
     "dev": "vite",
